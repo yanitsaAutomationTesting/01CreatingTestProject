@@ -21,7 +21,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 
                 ApplicationPage applicationPage = homePage.clickOnApplyButton();
                 applicationPage.EnsurePageLoaded();
@@ -36,17 +36,15 @@ namespace CreaditCards.UITests
             {
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-                driver.Navigate().GoToUrl(HomeUrl);
-                IWebElement nextGoToRight = driver.FindElement(By.CssSelector(".glyphicon-chevron-right"));
-                nextGoToRight.Click();
+                HomePage homePage = new HomePage(driver);
+                homePage.NavigateTo(driver);
+                homePage.ClickNextOnTheRight();
                 Thread.Sleep(1000);
-                IWebElement applyLink = driver.FindElement(By.CssSelector(".active [href='/Apply']"));
-                nextGoToRight.Click();
+                homePage.ClickNextOnTheRight();
                 Thread.Sleep(1000);
-                IWebElement applyLink3 = driver.FindElement(By.ClassName("customer-service-apply-now"));
-                applyLink3.Click();
-                Assert.Equal("Credit Card Application - Credit Cards", driver.Title);
-                Assert.Equal(ApplyUrl, driver.Url);
+                ApplicationPage applicationPage = homePage.clickOnApplyButton3();
+                applicationPage.EnsurePageLoaded();
+                
 
             }
         }
@@ -56,14 +54,11 @@ namespace CreaditCards.UITests
         {
             using (IWebDriver driver = new FirefoxDriver())
             {
-                driver.Navigate().GoToUrl(HomeUrl);
-                Thread.Sleep(1000);
+                HomePage homePage = new HomePage(driver);
+                homePage.NavigateTo(driver);
+                ApplicationPage applicationPage = homePage.clickOnRandomGreetingLink();
+                applicationPage.EnsurePageLoaded();
 
-                IWebElement randomGreeting = driver.FindElement(By.PartialLinkText("- Apply Now"));
-                Thread.Sleep(1000);
-                randomGreeting.Click();
-                Assert.Equal("Credit Card Application - Credit Cards", driver.Title);
-                Assert.Equal(ApplyUrl, driver.Url);
             }
         }
 
@@ -74,7 +69,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 homePage.WaitForEasyApplucationCarouselPage();
                 ApplicationPage applicationPage = homePage.ClickApplyEasyApplicationLink();
                 applicationPage.EnsurePageLoaded();
@@ -88,7 +83,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 ApplicationPage applicationPage = new ApplicationPage(driver);
-                applicationPage.NavigateTo();
+                applicationPage.NavigateTo(driver);
                 applicationPage.enterFirstName("Sarah");
                 applicationPage.enterLastName("Parker");
                 applicationPage.enterFrequentFlyerNumber("45556");
@@ -121,7 +116,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 ApplicationPage applicationPage = new ApplicationPage(driver);
-                applicationPage.NavigateTo();
+                applicationPage.NavigateTo(driver);
 
                 applicationPage.enterFirstName(firstName);
                 // Don't enter lastname

@@ -20,7 +20,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 
             }
         }
@@ -33,7 +33,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
 
 
                 string initialToken = homePage.GenerationToken;
@@ -58,7 +58,7 @@ namespace CreaditCards.UITests
             {
                
                 var homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 Assert.Equal("Easy Credit Card", homePage.Products[0].name);
                 Assert.Equal("20% APR", homePage.Products[0].interestRate);
 
@@ -81,7 +81,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 homePage.ClickContactFooterLink();
                 
                 ReadOnlyCollection<string> allTabs = driver.WindowHandles;
@@ -101,7 +101,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
 
                 homePage.ClickLiveChatFooterLink();
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
@@ -120,7 +120,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 homePage.ClickLearnAllAboutUsLink();
                 
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
@@ -137,7 +137,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 homePage.ClickLearnAllAboutUsLink();
 
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));

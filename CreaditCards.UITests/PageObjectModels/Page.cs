@@ -10,7 +10,7 @@ namespace CreaditCards.UITests.PageObjectModels
         protected virtual string PageUrl { get; }
         protected virtual string PageTitle { get; }
 
-        public void NavigateTo()
+        public void NavigateTo(IWebDriver Driver)
         {
             Driver.Navigate().GoToUrl(PageUrl);
             EnsurePageLoaded();

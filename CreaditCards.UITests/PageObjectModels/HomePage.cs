@@ -49,6 +49,16 @@ namespace CreaditCards.UITests.PageObjectModels
             Driver.FindElement(By.Name("ApplyLowRate")).Click();
             return new ApplicationPage(Driver);
         }
+        public ApplicationPage clickOnApplyButton3()
+        {   
+            Driver.FindElement(By.ClassName("customer-service-apply-now")).Click();
+            return new ApplicationPage(Driver);
+        }
+        public ApplicationPage clickOnRandomGreetingLink()
+        {
+            Driver.FindElement(By.PartialLinkText("- Apply Now")).Click();
+            return new ApplicationPage(Driver);
+        }
 
        public void WaitForEasyApplucationCarouselPage()
         {
@@ -62,6 +72,10 @@ namespace CreaditCards.UITests.PageObjectModels
             Driver.FindElement(By.LinkText("Easy: Apply Now!")).Click();
             return new ApplicationPage(Driver);
         }
+
+        public void ClickNextOnTheRight() => Driver.FindElement(By.CssSelector(".glyphicon-chevron-right")).Click();
+
+                
 
 
     }
