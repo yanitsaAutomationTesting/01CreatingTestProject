@@ -111,8 +111,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="SpecflowSteps\NavigateToApplicationPage.feature" />
-    <None Include="SpecflowSteps\SubmitApplication.feature" />
+    <None Include="SpecflowFeatureFiles\HomePageFeatures.feature" />
+    <None Include="SpecflowFeatureFiles\NavigateToApplicationPage.feature" />
+    <None Include="SpecflowFeatureFiles\SubmitApplication.feature" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />

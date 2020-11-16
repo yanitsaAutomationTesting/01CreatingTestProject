@@ -29,12 +29,12 @@ namespace CreaditCards.UITests.PageObjectModels
         }
 
         public void ClearAge() => Driver.FindElement(By.Id("Age")).Clear();
-        public void enterFirstName(string name) => Driver.FindElement(By.CssSelector("#FirstName")).SendKeys(name);
-        public void enterLastName(string lastName) => Driver.FindElement(By.CssSelector("#LastName")).SendKeys(lastName);
-        public void enterAge(string age) => Driver.FindElement(By.CssSelector("#Age")).SendKeys(age);
-        public void enterFrequentFlyerNumber(string ffNumber) => Driver.FindElement(By.CssSelector("#FrequentFlyerNumber")).SendKeys(ffNumber);
-        public void enterGrossIncome(string grossIncome) => Driver.FindElement(By.CssSelector("[name='GrossAnnualIncome']")).SendKeys(grossIncome);
-        public void chooseMaritalStatus(string maritalStatus)
+        public void EnterFirstName(string name) => Driver.FindElement(By.CssSelector("#FirstName")).SendKeys(name);
+        public void EnterLastName(string lastName) => Driver.FindElement(By.CssSelector("#LastName")).SendKeys(lastName);
+        public void EnterAge(string age) => Driver.FindElement(By.CssSelector("#Age")).SendKeys(age);
+        public void EnterFrequentFlyerNumber(string ffNumber) => Driver.FindElement(By.CssSelector("#FrequentFlyerNumber")).SendKeys(ffNumber);
+        public void EnterGrossIncome(string grossIncome) => Driver.FindElement(By.CssSelector("[name='GrossAnnualIncome']")).SendKeys(grossIncome);
+        public void ChooseMaritalStatus(string maritalStatus)
         {
             if(maritalStatus == "Married")
             {
@@ -54,7 +54,7 @@ namespace CreaditCards.UITests.PageObjectModels
 
         }
 
-        public void verifyBusinessSourceDropdownOptions()
+        public void VerifyBusinessSourceDropdownOptions()
         {
             IWebElement businessSourceDropdown = Driver.FindElement(By.CssSelector("#BusinessSource"));
             SelectElement businessSourceSelect = new SelectElement(businessSourceDropdown);
@@ -78,19 +78,19 @@ namespace CreaditCards.UITests.PageObjectModels
             Assert.Equal(5, businessSourceSelect.Options.Count);
         }
         
-        public void chooseBusinessSource(string source)
+        public void ChooseBusinessSource(string source)
         {
             IWebElement businessSourceDropdown = Driver.FindElement(By.CssSelector("#BusinessSource"));
             SelectElement businessSourceSelect = new SelectElement(businessSourceDropdown);
             businessSourceSelect.SelectByText(source);
         }
 
-        public void acceptTermsAndConditions()
+        public void AcceptTermsAndConditions()
         {
             Driver.FindElement(By.CssSelector("[type='checkbox'][name='TermsAccepted']")).Click();
         }
 
-        public ApplicationCompletePage submitApplication() 
+        public ApplicationCompletePage SubmitApplication() 
         { 
             Driver.FindElement(By.CssSelector("#SubmitApplication")).Click();
             return new ApplicationCompletePage(Driver);

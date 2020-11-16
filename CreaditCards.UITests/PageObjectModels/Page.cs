@@ -4,7 +4,7 @@ using System;
 
 namespace CreaditCards.UITests.PageObjectModels
 {
-    class Page
+     class Page
     {
         protected IWebDriver Driver;
         protected virtual string PageUrl { get; }
