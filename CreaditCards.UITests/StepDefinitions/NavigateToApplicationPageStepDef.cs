@@ -14,7 +14,7 @@ namespace CreaditCards.UITests.StepDefinitions
         private HomePage homePage;
         private ApplicationPage applicationPage;
         private ApplicationCompletePage applicationCompletePage;
-        private const string AboutURL = "http://localhost:44108/Home/About";
+        private AboutPage aboutPage;
 
 
         [Given(@"I am on Home page")]
@@ -168,13 +168,14 @@ namespace CreaditCards.UITests.StepDefinitions
         [Given(@"I go to the About page")]
         public void GivenIGoToTheAboutPage()
         {
-            _driver.Navigate().GoToUrl(AboutURL);
+            aboutPage = new AboutPage(_driver);
+            aboutPage.NavigateTo(_driver);
         }
 
         [When(@"I go back")]
         public void WhenIGoBack()
         {
-            _driver.Navigate().Back();
+            aboutPage.GoBackwards();
         }
 
         [Then(@"I am on Home page")]

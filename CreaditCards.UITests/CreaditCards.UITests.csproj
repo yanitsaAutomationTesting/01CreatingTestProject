@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="CreditCardApplicationShould.cs" />
     <Compile Include="CreditCardWebAppShould.cs" />
+    <Compile Include="PageObjectModels\AboutPage.cs" />
     <Compile Include="PageObjectModels\ApplicationCompletePage.cs" />
     <Compile Include="PageObjectModels\ApplicationPage.cs" />
     <Compile Include="PageObjectModels\HomePage.cs" />

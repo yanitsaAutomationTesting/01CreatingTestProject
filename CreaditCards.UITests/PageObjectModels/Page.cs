@@ -38,5 +38,10 @@ namespace CreaditCards.UITests.PageObjectModels
                 throw new Exception($"Failed to load page. Page URL = '{Driver.Url}' Page Source: \r\n {Driver.PageSource}");
             }
         }
+
+        public void GoBackwards()
+        {
+            Driver.Navigate().Back();
+        }
     }
 }
