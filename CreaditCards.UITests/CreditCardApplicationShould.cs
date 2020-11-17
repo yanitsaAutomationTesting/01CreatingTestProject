@@ -10,20 +10,16 @@ namespace CreaditCards.UITests
 {
     public class CreditCardApplicationShould
     {
-        private const string HomeUrl = "http://localhost:44108/";
-        private const string ApplyUrl = "http://localhost:44108/Apply";
         
-        
-
         [Fact]
         public void BeInitiatedFromHomePage_NewLowRate()
         {
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 
-                ApplicationPage applicationPage = homePage.clickOnApplyButton();
+                ApplicationPage applicationPage = homePage.ClickOnApplyButton();
                 applicationPage.EnsurePageLoaded();
             }
         }
@@ -36,17 +32,15 @@ namespace CreaditCards.UITests
             {
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-                driver.Navigate().GoToUrl(HomeUrl);
-                IWebElement nextGoToRight = driver.FindElement(By.CssSelector(".glyphicon-chevron-right"));
-                nextGoToRight.Click();
+                HomePage homePage = new HomePage(driver);
+                homePage.NavigateTo(driver);
+                homePage.ClickNextOnTheRight();
                 Thread.Sleep(1000);
-                IWebElement applyLink = driver.FindElement(By.CssSelector(".active [href='/Apply']"));
-                nextGoToRight.Click();
+                homePage.ClickNextOnTheRight();
                 Thread.Sleep(1000);
-                IWebElement applyLink3 = driver.FindElement(By.ClassName("customer-service-apply-now"));
-                applyLink3.Click();
-                Assert.Equal("Credit Card Application - Credit Cards", driver.Title);
-                Assert.Equal(ApplyUrl, driver.Url);
+                ApplicationPage applicationPage = homePage.ClickOnApplyButton3();
+                applicationPage.EnsurePageLoaded();
+                
 
             }
         }
@@ -56,14 +50,11 @@ namespace CreaditCards.UITests
         {
             using (IWebDriver driver = new FirefoxDriver())
             {
-                driver.Navigate().GoToUrl(HomeUrl);
-                Thread.Sleep(1000);
+                HomePage homePage = new HomePage(driver);
+                homePage.NavigateTo(driver);
+                ApplicationPage applicationPage = homePage.ClickOnRandomGreetingLink();
+                applicationPage.EnsurePageLoaded();
 
-                IWebElement randomGreeting = driver.FindElement(By.PartialLinkText("- Apply Now"));
-                Thread.Sleep(1000);
-                randomGreeting.Click();
-                Assert.Equal("Credit Card Application - Credit Cards", driver.Title);
-                Assert.Equal(ApplyUrl, driver.Url);
             }
         }
 
@@ -74,7 +65,7 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 HomePage homePage = new HomePage(driver);
-                homePage.NavigateTo();
+                homePage.NavigateTo(driver);
                 homePage.WaitForEasyApplucationCarouselPage();
                 ApplicationPage applicationPage = homePage.ClickApplyEasyApplicationLink();
                 applicationPage.EnsurePageLoaded();
@@ -88,16 +79,16 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 ApplicationPage applicationPage = new ApplicationPage(driver);
-                applicationPage.NavigateTo();
-                applicationPage.enterFirstName("Sarah");
-                applicationPage.enterLastName("Parker");
-                applicationPage.enterFrequentFlyerNumber("45556");
-                applicationPage.enterAge("20");
-                applicationPage.enterGrossIncome("10000");
-                applicationPage.chooseMaritalStatus("Single");
-                applicationPage.chooseBusinessSource("Internet Search");
-                applicationPage.acceptTermsAndConditions();
-                ApplicationCompletePage applicationCompletePage = applicationPage.submitApplication();
+                applicationPage.NavigateTo(driver);
+                applicationPage.EnterFirstName("Sarah");
+                applicationPage.EnterLastName("Parker");
+                applicationPage.EnterFrequentFlyerNumber("45556");
+                applicationPage.EnterAge("20");
+                applicationPage.EnterGrossIncome("10000");
+                applicationPage.ChooseMaritalStatus("Single");
+                applicationPage.ChooseBusinessSource("Internet Search");
+                applicationPage.AcceptTermsAndConditions();
+                ApplicationCompletePage applicationCompletePage = applicationPage.SubmitApplication();
 
                 //check we are on the Complete application page
                 applicationCompletePage.EnsurePageLoaded();
@@ -121,17 +112,17 @@ namespace CreaditCards.UITests
             using (IWebDriver driver = new FirefoxDriver())
             {
                 ApplicationPage applicationPage = new ApplicationPage(driver);
-                applicationPage.NavigateTo();
+                applicationPage.NavigateTo(driver);
 
-                applicationPage.enterFirstName(firstName);
+                applicationPage.EnterFirstName(firstName);
                 // Don't enter lastname
-                applicationPage.enterFrequentFlyerNumber("45556");
-                applicationPage.enterAge(invalidAge);
-                applicationPage.enterGrossIncome("10000");
-                applicationPage.chooseMaritalStatus("Single");
-                applicationPage.chooseBusinessSource("Internet Search");
-                applicationPage.acceptTermsAndConditions();
-                applicationPage.submitApplication();
+                applicationPage.EnterFrequentFlyerNumber("45556");
+                applicationPage.EnterAge(invalidAge);
+                applicationPage.EnterGrossIncome("10000");
+                applicationPage.ChooseMaritalStatus("Single");
+                applicationPage.ChooseBusinessSource("Internet Search");
+                applicationPage.AcceptTermsAndConditions();
+                applicationPage.SubmitApplication();
 
                 // Assert that validation failed                
                 Assert.Equal(2, applicationPage.ValidationMessages.Count);
@@ -139,14 +130,14 @@ namespace CreaditCards.UITests
                 Assert.Equal("You must be at least 18 years old", applicationPage.ValidationMessages[1].ToString());
 
                 // Fix errors
-                applicationPage.enterLastName("Parker");
+                applicationPage.EnterLastName("Parker");
                 applicationPage.ClearAge();
-                applicationPage.enterAge(validAge);
+                applicationPage.EnterAge(validAge);
 
                 driver.FindElement(By.Id("Age")).SendKeys(validAge);
 
                 // Resubmit form
-                ApplicationCompletePage applicationCompletePage = applicationPage.submitApplication();
+                ApplicationCompletePage applicationCompletePage = applicationPage.SubmitApplication();
 
                 // Check form submitted
                 applicationCompletePage.EnsurePageLoaded();

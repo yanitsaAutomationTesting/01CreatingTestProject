@@ -1,5 +1,4 @@
 ﻿
-
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +7,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace CreaditCards.UITests.PageObjectModels
 {
-    class HomePage : Page
+     class HomePage : Page
     {
         protected override string PageUrl => "http://localhost:44108/";
         protected override string PageTitle => "Home Page - Credit Cards";
@@ -44,16 +43,26 @@ namespace CreaditCards.UITests.PageObjectModels
 
        public void ClickLiveChatFooterLink() => Driver.FindElement(By.CssSelector("#LiveChat")).Click();
         public void ClickLearnAllAboutUsLink() => Driver.FindElement(By.CssSelector("#LearnAboutUs")).Click();
-        public ApplicationPage  clickOnApplyButton()
+        public ApplicationPage  ClickOnApplyButton()
         {
             Driver.FindElement(By.Name("ApplyLowRate")).Click();
+            return new ApplicationPage(Driver);
+        }
+        public ApplicationPage ClickOnApplyButton3()
+        {   
+            Driver.FindElement(By.ClassName("customer-service-apply-now")).Click();
+            return new ApplicationPage(Driver);
+        }
+        public ApplicationPage ClickOnRandomGreetingLink()
+        {
+            Driver.FindElement(By.PartialLinkText("- Apply Now")).Click();
             return new ApplicationPage(Driver);
         }
 
        public void WaitForEasyApplucationCarouselPage()
         {
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(12));
-            IWebElement applyLink = wait.Until(ExpectedConditions.ElementToBeClickable(By.LinkText("Easy: Apply Now!")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.LinkText("Easy: Apply Now!")));
 
         }
 
@@ -62,6 +71,10 @@ namespace CreaditCards.UITests.PageObjectModels
             Driver.FindElement(By.LinkText("Easy: Apply Now!")).Click();
             return new ApplicationPage(Driver);
         }
+
+        public void ClickNextOnTheRight() => Driver.FindElement(By.CssSelector(".glyphicon-chevron-right")).Click();
+
+                
 
 
     }

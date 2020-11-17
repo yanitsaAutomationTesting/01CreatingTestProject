@@ -4,13 +4,13 @@ using System;
 
 namespace CreaditCards.UITests.PageObjectModels
 {
-    class Page
+     class Page
     {
         protected IWebDriver Driver;
         protected virtual string PageUrl { get; }
         protected virtual string PageTitle { get; }
 
-        public void NavigateTo()
+        public void NavigateTo(IWebDriver Driver)
         {
             Driver.Navigate().GoToUrl(PageUrl);
             EnsurePageLoaded();
@@ -37,6 +37,11 @@ namespace CreaditCards.UITests.PageObjectModels
             {
                 throw new Exception($"Failed to load page. Page URL = '{Driver.Url}' Page Source: \r\n {Driver.PageSource}");
             }
+        }
+
+        public void GoBackwards()
+        {
+            Driver.Navigate().Back();
         }
     }
 }

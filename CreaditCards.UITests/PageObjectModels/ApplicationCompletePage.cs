@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using Xunit;
 
 
 namespace CreaditCards.UITests.PageObjectModels
@@ -12,6 +13,11 @@ namespace CreaditCards.UITests.PageObjectModels
             Driver = driver;
         }
         public string fullName => Driver.FindElement(By.CssSelector("#FullName")).Text;
+        public void verifyFullName(string expectedFullName)
+        {
+            Assert.Equal(expectedFullName, fullName);
+        }
+
 
     }
 }
