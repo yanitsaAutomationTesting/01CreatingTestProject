@@ -107,7 +107,12 @@
     <Compile Include="PageObjectModels\HomePage.cs" />
     <Compile Include="PageObjectModels\Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepDefinitions\AboutPageSteps.cs" />
+    <Compile Include="StepDefinitions\ApplicationCompletePageSteps.cs" />
+    <Compile Include="StepDefinitions\ApplicationPageSteps.cs" />
+    <Compile Include="StepDefinitions\HooksBeforeAfterScenario.cs" />
     <Compile Include="StepDefinitions\NavigateToApplicationPageStepDef.cs" />
+    <Compile Include="StepDefinitions\StepDefinitionsContextInjection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
