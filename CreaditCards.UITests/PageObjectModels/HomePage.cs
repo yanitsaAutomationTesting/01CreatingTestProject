@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
 using OpenQA.Selenium.Support.UI;
+using Xunit;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace CreaditCards.UITests.PageObjectModels
 {
@@ -17,10 +19,11 @@ namespace CreaditCards.UITests.PageObjectModels
         }
         //getter for GenerationToken property returning its text
         public string GenerationToken => Driver.FindElement(By.Id("GenerationToken")).Text;
-        public void ClickContactFooterLink() => Driver.FindElement(By.CssSelector("#ContactFooter")).Click();
-
-        
-
+        public ContactPage ClickContactFooterLink()
+        {
+            Driver.FindElement(By.CssSelector("#ContactFooter")).Click();
+            return new ContactPage(Driver);
+        }
         public ReadOnlyCollection<(string name, string interestRate)> Products
         {
             get
@@ -36,10 +39,6 @@ namespace CreaditCards.UITests.PageObjectModels
                 }return products.AsReadOnly();
             }
         }
-
-        
-
-        
 
        public void ClickLiveChatFooterLink() => Driver.FindElement(By.CssSelector("#LiveChat")).Click();
         public void ClickLearnAllAboutUsLink() => Driver.FindElement(By.CssSelector("#LearnAboutUs")).Click();
@@ -58,7 +57,7 @@ namespace CreaditCards.UITests.PageObjectModels
             Driver.FindElement(By.PartialLinkText("- Apply Now")).Click();
             return new ApplicationPage(Driver);
         }
-
+        
        public void WaitForEasyApplucationCarouselPage()
         {
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(12));
@@ -74,7 +73,29 @@ namespace CreaditCards.UITests.PageObjectModels
 
         public void ClickNextOnTheRight() => Driver.FindElement(By.CssSelector(".glyphicon-chevron-right")).Click();
 
-                
+        public void VerifyAlertPopUpAndAccept(string text)
+        {
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+
+            IAlert alert = wait.Until(ExpectedConditions.AlertIsPresent());
+            Assert.Contains(text, alert.Text);
+            alert.Accept();
+        }
+
+        public void VerifyAlertPopUpAndDismiss(string text)
+        {
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+
+            IAlert alert = wait.Until(ExpectedConditions.AlertIsPresent());
+            Assert.Contains(text, alert.Text);
+            alert.Dismiss();
+        }
+
+        
+
+
+
+
 
 
     }

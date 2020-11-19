@@ -13,7 +13,7 @@ namespace CreaditCards.UITests.StepDefinitions
         public ApplicationCompletePage ApplicationCompletePage { get; set; }
 
         public AboutPage AboutPage { get; set; }
-
+        public ContactPage ContactPage { get; set; }
         public IWebDriver _driver { get; set; }
     }
 }

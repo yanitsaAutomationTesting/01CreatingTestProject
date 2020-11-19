@@ -1,16 +1,18 @@
 ﻿using CreaditCards.UITests.PageObjectModels;
+using System.Collections.Generic;
 using System.Threading;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using Xunit;
 namespace CreaditCards.UITests.StepDefinitions
 {
     [Binding]
-   public class NavigateToApplicationPageStepDef : TechTalk.SpecFlow.Steps
+    public class NavigateToApplicationPageStepDef : TechTalk.SpecFlow.Steps
 
     {
 
         private StepDefinitionsContextInjection _context;
-         NavigateToApplicationPageStepDef(StepDefinitionsContextInjection context)
+        NavigateToApplicationPageStepDef(StepDefinitionsContextInjection context)
         {
             _context = context;
         }
@@ -19,7 +21,7 @@ namespace CreaditCards.UITests.StepDefinitions
         [Given(@"I am on Home page")]
         public void GivenIAmOnHomePage()
         {
-            _context.HomePage = new HomePage(_context._driver);           
+            _context.HomePage = new HomePage(_context._driver);
             _context.HomePage.NavigateTo(_context._driver);
 
         }
@@ -41,7 +43,7 @@ namespace CreaditCards.UITests.StepDefinitions
         {
             _context.HomePage.ClickNextOnTheRight();
             Thread.Sleep(1000);
-           
+
         }
 
         [When(@"I click on the 3rd apply button")]
@@ -87,7 +89,73 @@ namespace CreaditCards.UITests.StepDefinitions
             Assert.NotEqual(initialToken, _context.HomePage.GenerationToken);
         }
 
+        [Then(@"Product and Rates are:")]
+        public void ThenProductAndRatesAre(Table table)
+        {
+            IEnumerable<dynamic> products = table.CreateDynamicSet();
+            int i = 0;
+            foreach (var product in products)
+            {
+                if (i < 3)
+                {
+                    Assert.Equal(product.productName, _context.HomePage.Products[i].name);
+                    Assert.Equal(product.rate, _context.HomePage.Products[i].interestRate);
+                    i++;
+                } 
+                
+
+            }
+        }
+
+
+        [When(@"I click on the Contact link")]
+        public void WhenIClickOnTheContactLink()
+        {
+            _context.ContactPage = _context.HomePage.ClickContactFooterLink();
+        }
+
+        [Then(@"the Contact page is loaded in a new tab")]
+        public void ThenTheContactPageIsLoaded()
+        {
+            _context.HomePage.SwitchToTabNumber(1);
+            Thread.Sleep(1000);
+            _context.ContactPage.EnsurePageLoaded();
+        }
+
+        [When(@"I click on the Start Live Chat link")]
+        public void WhenIClickOnTheStartLiveChatLink()
+        {
+            _context.HomePage.ClickLiveChatFooterLink();
+        }
+
+        [Then(@"the Alert pop-up is visible with text (.*) and accept it")]
+        public void ThenTheAlertPop_UpIsVisible(string text)
+        {
+            _context.HomePage.VerifyAlertPopUpAndAccept(text);
+
+        }
+
+        [Then(@"the Alert pop-up is visible with text (.*) and close it")]
+        public void ThenTheAlertPop_UpIsVisibleAndClose(string text)
+        {
+
+            _context.HomePage.VerifyAlertPopUpAndDismiss(text);
+        }
+
+        [When(@"I click on the All Aout Us link")]
+        public void WhenIClickOnTheAllAoutUsLink()
+        {
+            _context.HomePage.ClickLearnAllAboutUsLink();
+        }
+
         
+
+        
+
+
+
+
+
 
     }
 }
