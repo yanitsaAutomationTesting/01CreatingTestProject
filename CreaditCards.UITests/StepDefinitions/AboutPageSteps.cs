@@ -1,4 +1,5 @@
 ﻿using CreaditCards.UITests.PageObjectModels;
+using System.Threading;
 using TechTalk.SpecFlow;
 
 namespace CreaditCards.UITests.StepDefinitions
@@ -24,6 +25,14 @@ namespace CreaditCards.UITests.StepDefinitions
         {
             _context.AboutPage.GoBackwards();
         }
+        [Then(@"I am on About page")]
+        public void ThenIAmOnAboutPage()
+        {
+            Thread.Sleep(1000);
+            _context.AboutPage = new AboutPage(_context._driver);
+            _context.AboutPage.EnsurePageLoaded();
+        }
+
 
 
     }

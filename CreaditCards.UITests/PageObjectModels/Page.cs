@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
-
+using System.Collections.ObjectModel;
 
 namespace CreaditCards.UITests.PageObjectModels
 {
@@ -42,6 +42,13 @@ namespace CreaditCards.UITests.PageObjectModels
         public void GoBackwards()
         {
             Driver.Navigate().Back();
+        }
+
+        public void SwitchToTabNumber(int tabNumber)
+        {
+            ReadOnlyCollection<string> allTabs = Driver.WindowHandles;
+            string chosenTab = allTabs[tabNumber];
+            Driver.SwitchTo().Window(chosenTab);
         }
     }
 }
